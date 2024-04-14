@@ -3,6 +3,7 @@ package utils
 import (
 	"fmt"
 
+	"cocean.com/src/models"
 	"cocean.com/src/types"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -19,7 +20,10 @@ func Connect(config types.DBConfig) (*gorm.DB, error) {
 		return nil, err
 	}
 
-	
+	errMig := db.AutoMigrate(&models.Admins{})
+	if errMig != nil {
+		return nil, errMig
+	}
 
 	return db, nil
 }
