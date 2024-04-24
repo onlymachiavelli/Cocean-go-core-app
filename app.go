@@ -70,6 +70,9 @@ func main () {
 
 		adminGroup := e.Group("/me")
 		route.AdminRoutes(adminGroup, db)
+
+		businessGrp := e.Group("")
+		route.BusinessRoutes(businessGrp, db)
 		
 
 

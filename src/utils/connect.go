@@ -25,5 +25,11 @@ func Connect(config types.DBConfig) (*gorm.DB, error) {
 		return nil, errMig
 	}
 
+
+
+	errMigBusiness := db.AutoMigrate(&models.Business{})
+	if errMigBusiness != nil {
+		return nil, errMigBusiness
+	}
 	return db, nil
 }

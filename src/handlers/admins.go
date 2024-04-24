@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"cocean.com/src/models"
@@ -54,6 +55,10 @@ func CreateAdmin(c echo.Context, db *gorm.DB) error {
 
 
 func Login (c echo.Context, db *gorm.DB) error {
+
+
+
+	fmt.Println("Hit the login handler")
 	payload := new (requests.AdminLoginRequest)
 	if err := c.Bind(payload) ; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
