@@ -9,23 +9,24 @@ import (
 	"cocean.com/src/utils"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
-// func injectCors(e *echo.Echo) {
-// 	devMode := true
-// 	if (devMode) {
-// 		e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-// 			AllowOrigins: []string{"*"},
-// 			AllowHeaders: []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
-// 		  }))
+func injectCors(e *echo.Echo) {
+	devMode := true
+	if (devMode) {
+		e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+			AllowOrigins: []string{"*"},
+			AllowHeaders: []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
+		  }))
 
-// 	} else {
-// 		e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-// 			AllowOrigins: []string{"*"},
-// 			AllowHeaders: []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
-// 		  }))
-// 	}
-// }
+	} else {
+		e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+			AllowOrigins: []string{"*"},
+			AllowHeaders: []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
+		  }))
+	}
+}
 
 func init() {
 	fmt.Println("Hit the main file")
@@ -34,11 +35,6 @@ func init() {
 
 
 func main () {
-
-
-
-	//cors 
-	
 	loadEnvErr := godotenv.Load()
 	if (loadEnvErr != nil) {
 		panic(loadEnvErr)
@@ -61,7 +57,7 @@ func main () {
 
 	
 	e := echo.New()
-	// injectCors(e)
+	injectCors(e)
 
 
 
@@ -69,11 +65,9 @@ func main () {
 	if (db!= nil) {
 		fmt.Println("Connected to the database")
 
-		//health groupe 
 		healthGroup := e.Group("/health")
 		route.HealthRoute(healthGroup)
 
-		//admin groupe
 		adminGroup := e.Group("/me")
 		route.AdminRoutes(adminGroup, db)
 		
