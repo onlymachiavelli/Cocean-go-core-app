@@ -27,7 +27,7 @@ func CreateBusiness(c echo.Context , db *gorm.DB) error{
 	owner := c.Get("Owner")
 
 	fmt.Println("The payload is : " , payload)
-	if payload.Address == "" || payload.Name == "" || payload.Phone == ""  || payload.Email == "" || payload.Description == "" || payload.Photo == ""	 {
+	if payload.Address == "" || payload.Name == "" || payload.Phone == ""  || payload.Email == "" || payload.Description == "" 	 {
 		return c.JSON(400, map[string]interface{}{
 			"message": "All fields are required",
 		})
