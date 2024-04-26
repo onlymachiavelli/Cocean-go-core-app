@@ -34,13 +34,7 @@ func AuthMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 				"message": "Invalid token",
 			})
 		}
-
-		OnwerId := claims["id"]
-
-		
-		
-
-		c.Set("Owner", OnwerId)
+		c.Set("Owner", int(claims["id"].(float64)))	 
 		return next(c)
 
 	

@@ -74,8 +74,6 @@ func main () {
 		businessGrp := e.Group("")
 		route.BusinessRoutes(businessGrp, db)
 		
-
-
 	}
 	e.Logger.Fatal(e.Start(":8000"))
 

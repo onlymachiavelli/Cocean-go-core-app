@@ -18,6 +18,4 @@ type CreateBusiness struct {
 	Description string `json:"description" gorm:"not null"`
 	Category    string `json:"category" gorm:"not null"`
 	Photo       string `json:"photo" gorm:"not null"`
-	Owner 	 int    `json:"owner" gorm:"not null"`
-
 }

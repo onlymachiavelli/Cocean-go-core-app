@@ -10,11 +10,6 @@ import (
 func init() {
 	fmt.Println("Hit the adminroutes.go file")
 }
-
-
-
-
-
 func AdminRoutes(g *echo.Group, db *gorm.DB) {
 
 	g.POST("", func(c echo.Context) error {
