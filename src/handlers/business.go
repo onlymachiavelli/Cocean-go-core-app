@@ -62,7 +62,26 @@ func CreateBusiness(c echo.Context , db *gorm.DB) error{
 
 //return ressourses 
 func GetMyBusinesses (c echo.Context, db *gorm.DB) error {
-	return nil 
+
+	id := c.Get("Owner").(int)
+	if id == 0 {
+		return c.JSON(400, map[string]interface{}{
+			"message": "Invalid user",
+		})
+	}
+
+	var businesses []models.Business
+	err := db.Where("owner = ?", id).Find(&businesses).Error
+	if err != nil {
+		return c.JSON(500, map[string]interface{}{
+			"message": "Could not fetch businesses",
+		})
+	}
+	return c.JSON(200, map[string]interface{}{
+			"businesses": businesses,
+		})
+
+ 	return nil 
 }
 
 

@@ -15,4 +15,7 @@ func BusinessRoutes(g *echo.Group, db *gorm.DB) {
 	businessGroup.POST("", func(c echo.Context) error {
 		return handlers.CreateBusiness(c, db)
 	})
+	businessGroup.GET("", func(c echo.Context) error {
+		return handlers.GetMyBusinesses(c, db)
+	})
 }
