@@ -9,6 +9,5 @@ type Business struct {
 	Owner       int    `json:"owner" gorm:"not null"`
 	Description string `json:"description" gorm:"not null"`
 	Category    string `json:"category" gorm:"not null"`
-	Photo       string `json:"photo" gorm:"not null"`
 	CreatedAt   int    `json:"created_at" gorm:"autoCreateTime"`
 }

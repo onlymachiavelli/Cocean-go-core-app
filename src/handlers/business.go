@@ -39,7 +39,6 @@ func CreateBusiness(c echo.Context , db *gorm.DB) error{
 		Phone: payload.Phone,
 		Email: payload.Email,
 		Description: payload.Description,
-		Photo: payload.Photo,
 		Owner:  owner.(int),
 	}
 
@@ -81,15 +80,4 @@ func GetMyBusinesses (c echo.Context, db *gorm.DB) error {
 			"businesses": businesses,
 		})
 
- 	return nil 
 }
-
-
-
-//return one record 
-func GetMyBusiness(c echo.Context , db *gorm.DB) error {
-
-	return nil
-
-}
-
