@@ -18,4 +18,7 @@ func BusinessRoutes(g *echo.Group, db *gorm.DB) {
 	businessGroup.GET("", func(c echo.Context) error {
 		return handlers.GetMyBusinesses(c, db)
 	})
-}
+	businessGroup.GET("/one/:id", func(c echo.Context) error {
+		return handlers.GetMyBusiness(c, db)
+	})
+} 

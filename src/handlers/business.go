@@ -81,3 +81,26 @@ func GetMyBusinesses (c echo.Context, db *gorm.DB) error {
 		})
 
 }
+
+
+
+func GetMyBusiness(c echo.Context , db *gorm.DB) error{
+	id := c.Get("Owner").(int)
+	if id == 0 {
+		return c.JSON(400, map[string]interface{}{
+			"message": "Invalid user",
+		})
+	}
+
+	businessID := c.Param("id")
+	var business models.Business
+	err := db.Where("id = ? AND owner = ?", businessID, id).First(&business).Error
+	if err != nil {
+		return c.JSON(500, map[string]interface{}{
+			"message": "Could not fetch business",
+		})
+	}
+	return c.JSON(200, map[string]interface{}{
+			"business": business,
+		})
+}
