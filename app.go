@@ -73,6 +73,9 @@ func main () {
 
 		businessGrp := e.Group("")
 		route.BusinessRoutes(businessGrp, db)
+
+		prodGrp := e.Group("")
+		route.ProductsRoutes(prodGrp, db)
 		
 	}
 	e.Logger.Fatal(e.Start(":8000"))
