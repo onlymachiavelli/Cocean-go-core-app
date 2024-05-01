@@ -19,8 +19,7 @@ func ProductsRoutes(g *echo.Group, db *gorm.DB) {
 		return handlers.GetAll(c, db)
 	})
 
-	
-
-
-	
+	prodGrp.GET("/:id", func(c echo.Context) error {
+		return handlers.GetProducts(c, db)
+	})
 } 

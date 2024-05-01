@@ -87,12 +87,40 @@ func GetProduct(c echo.Context, db *gorm.DB) error {
 	return nil
 }
 
+
 func GetProducts(c echo.Context, db *gorm.DB) error {
-	return nil
+	idBus := c.Param("id") 
+	if idBus == "" {
+		return c.JSON(400 , "Missing parameter: bus_id")
+	}
+
+	id, err := strconv.Atoi(idBus)
+	if (err != nil) {
+		return c.JSON(400, map[string]interface{}{
+			"message": "Invalid request payload",
+		})
+	
+	}
+
+	business := models.Business{}
+
+	errFind := db.Where(&models.Business{ID: (id)}).First(&business).Error
+	if errFind != nil {
+		return c.JSON(404, map[string]interface{}{
+			"message": "Could not find business",
+		})
+	}
+	products := []models.Products{}
+	errGetProd := db.Where(&models.Products{BusinessID: id}).Find(&products).Error	
+	if errGetProd != nil {
+		return c.JSON(500, map[string]interface{}{
+			"message": "Could not fetch products",
+		})
+	}
+	return c.JSON(200, products)
 }
 
 
-//test functions 
 func GetAll (c echo.Context , db *gorm.DB) error {
 	data := []models.Products{}
 	err := db.Find(&data).Error
