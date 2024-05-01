@@ -22,4 +22,11 @@ func ProductsRoutes(g *echo.Group, db *gorm.DB) {
 	prodGrp.GET("/:id", func(c echo.Context) error {
 		return handlers.GetProducts(c, db)
 	})
+	prodGrp.GET("/one/:id" , func(c echo.Context ) error{
+		return handlers.GetProduct(c, db )
+	})
+
+	prodGrp.DELETE("/:id" , func(c echo.Context ) error{
+		return handlers.DeleteProduct(c, db )
+	})
 } 

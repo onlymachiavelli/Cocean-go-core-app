@@ -76,7 +76,39 @@ func CreateProduct(c echo.Context, db *gorm.DB) error {
 }
 
 func DeleteProduct(c echo.Context, db *gorm.DB) error {
-	return nil
+	
+	id := c.Param("id")
+	if id == "" {
+		return c.JSON(400, map[string]interface{}{
+			"message": "Missing parameter: id",
+		})
+	}
+
+	idInt, err := strconv.Atoi(id)
+	if err != nil {
+		return c.JSON(400, map[string]interface{}{
+			"message": "Invalid request payload",
+		})
+	}
+
+	product := models.Products{}
+	errFind := db.Where(&models.Products{ID: idInt}).First(&product).Error
+	if errFind != nil {
+		return c.JSON(404, map[string]interface{}{
+			"message": "Could not find product",
+		})
+	}
+
+	deleteErr := db.Delete(&product).Error
+	if deleteErr != nil {
+		return c.JSON(500, map[string]interface{}{
+			"message": "Could not delete product",
+		})
+	}
+
+	return c.JSON(200, map[string]interface{}{
+		"message": "Product deleted successfully",
+	})
 }
 
 func UpdateProduct(c echo.Context, db *gorm.DB) error {
@@ -84,7 +116,30 @@ func UpdateProduct(c echo.Context, db *gorm.DB) error {
 }
 
 func GetProduct(c echo.Context, db *gorm.DB) error {
-	return nil
+	id := c.Param("id")
+	if id == "" {
+		return c.JSON(400, map[string]interface{}{
+			"message": "Missing parameter: id",
+		})
+	}
+
+	idInt, err := strconv.Atoi(id)
+	if err != nil {
+		return c.JSON(400, map[string]interface{}{
+			"message": "Invalid request payload",
+		})
+	}
+
+
+	//get prod by id : 
+	product := models.Products{}
+	errFind := db.Where(&models.Products{ID: idInt}).First(&product).Error
+	if errFind != nil {
+		return c.JSON(404, map[string]interface{}{
+			"message": "Could not find product",
+		})
+	}
+	return c.JSON(200, product)
 }
 
 
