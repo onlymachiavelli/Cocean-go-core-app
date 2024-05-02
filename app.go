@@ -79,6 +79,10 @@ func main () {
 
 		orderGrp := e.Group("")
 		route.OrderRoute(orderGrp, db)
+
+
+		clientGrp := e.Group("")
+		route.ClientRoute(clientGrp, db)
 		
 	}
 	e.Logger.Fatal(e.Start(":8000"))

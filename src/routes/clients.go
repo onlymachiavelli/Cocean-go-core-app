@@ -26,4 +26,8 @@ func ClientRoute(g *echo.Group, db *gorm.DB) {
 	cGrp.GET("/:id", func(c echo.Context) error {
 		return handlers.GetMyClients(c, db)
 	})
+
+	cGrp.POST("/broadcast/:id", func(c echo.Context) error {
+		return handlers.Broadcast(c, db)
+	})
 } 
