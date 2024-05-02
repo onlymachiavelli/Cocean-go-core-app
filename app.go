@@ -76,6 +76,9 @@ func main () {
 
 		prodGrp := e.Group("")
 		route.ProductsRoutes(prodGrp, db)
+
+		orderGrp := e.Group("")
+		route.OrderRoute(orderGrp, db)
 		
 	}
 	e.Logger.Fatal(e.Start(":8000"))

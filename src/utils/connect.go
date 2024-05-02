@@ -35,6 +35,20 @@ func Connect(config types.DBConfig) (*gorm.DB, error) {
 		return nil, errProds
 	}
 
+
+	//orders 
+	errOrders := db.AutoMigrate(&models.Orders{})
+	if errOrders != nil {
+		return nil, errOrders
+	}
+
+	//clients 
+
+	errClients := db.AutoMigrate(&models.Clients{})
+	if errClients != nil {
+		return nil, errClients
+	}
+
 	return db, nil
 	
 }
